@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ComposeActivity extends Activity {
-    private Menu menu;
     private EditText etTweet;
     private Button btnCancel;
     private Button btnNew;
@@ -42,9 +41,9 @@ public class ComposeActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_timeline, menu);
-        this.menu = menu;
+        inflater.inflate(R.menu.menu_compose, menu);
         return super.onCreateOptionsMenu(menu);
     }
 }
