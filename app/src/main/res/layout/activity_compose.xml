@@ -5,12 +5,57 @@
     android:layout_height="match_parent"
     tools:context=".ComposeActivity" >
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivProfileImg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#f0f0f0"
+        android:minHeight="50dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvName"
+        android:layout_toRightOf="@+id/ivProfileImg"
+        android:paddingLeft="5dp"
+        android:background="#f0f0f0"
+        android:textSize="15sp"
+        android:textColor="#0059b3"
+        android:minHeight="25dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvScreenName"
+        android:layout_below="@+id/tvName"
+        android:layout_toRightOf="@+id/ivProfileImg"
+        android:paddingLeft="5dp"
+        android:background="#f0f0f0"
+        android:textSize="10sp"
+        android:textColor="#0059b3"
+        android:minHeight="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Tweet"
+        android:id="@+id/etTweet"
+        android:layout_below="@+id/ivProfileImg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="top|left"
+        android:background="#f2f2f2"
+        android:lines="10" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:id="@+id/btnCancel"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/etTweet"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -19,35 +64,8 @@
         android:layout_height="wrap_content"
         android:text="Tweet"
         android:id="@+id/btnNew"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/etTweet"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivMyProfile"
-        android:layout_below="@+id/btnCancel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:minHeight="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvMyProfile"
-        android:layout_below="@+id/btnCancel"
-        android:layout_toRightOf="@+id/ivMyProfile" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="New Text"
-        android:id="@+id/etTweet"
-        android:layout_below="@+id/tvMyProfile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="top|left" />
 
 </RelativeLayout>

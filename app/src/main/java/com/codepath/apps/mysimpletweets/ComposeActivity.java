@@ -1,8 +1,8 @@
 package com.codepath.apps.mysimpletweets;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -18,20 +18,22 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ComposeActivity extends Activity {
+public class ComposeActivity extends AppCompatActivity {
     private TwitterClient client;
     private EditText etTweet;
     private Button btnCancel;
     private Button btnNew;
-    private ImageView ivMyProfile;
-    private TextView tvMyProfile;
+    private ImageView ivProfileImg;
+    private TextView tvScreenName;
+    private TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-        ivMyProfile = (ImageView) findViewById(R.id.ivMyProfile);
-        tvMyProfile = (TextView) findViewById(R.id.tvMyProfile);
+        ivProfileImg = (ImageView) findViewById(R.id.ivProfileImg);
+        tvScreenName = (TextView) findViewById(R.id.tvScreenName);
+        tvName = (TextView) findViewById(R.id.tvName);
         etTweet = (EditText) findViewById(R.id.etTweet);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnNew = (Button) findViewById(R.id.btnNew);
@@ -69,9 +71,10 @@ public class ComposeActivity extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 //Log.d("DEBUG", response.toString());
                 try {
-                    tvMyProfile.setText(response.getString("screen_name"));
-                    ivMyProfile.setImageResource(0); //clear out imageview
-                    Picasso.with(ivMyProfile.getContext()).load(response.getString("profile_image_url")).into(ivMyProfile);
+                    tvScreenName.setText('@' + response.getString("screen_name"));
+                    tvName.setText(response.getString("name"));
+                    ivProfileImg.setImageResource(0); //clear out imageview
+                    Picasso.with(ivProfileImg.getContext()).load(response.getString("profile_image_url")).into(ivProfileImg);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
