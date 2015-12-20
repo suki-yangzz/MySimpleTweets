@@ -3,6 +3,7 @@ package com.codepath.apps.mysimpletweets.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,18 +83,22 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
     }
 
-    protected void refreshTimeline() {
-        Tweet firstTweet = getItem(0);
-        long sinceId = firstTweet.getUid();
-        populateTimeline(sinceId, 0);
+    public void refreshTimeline() {
+        if (!aTweets.isEmpty()) {
+            Tweet firstTweet = getItem(0);
+            long sinceId = firstTweet.getUid();
+            Log.d("DEBUG ", String.valueOf(sinceId));
+            populateTimeline(sinceId, 0);
+        }
     }
 
     // Append more data into the adapter
-    protected void customLoadMoreDataFromApi(int offset) {
+    public void customLoadMoreDataFromApi(int offset) {
         // This method probably sends out a network request and appends new data items to your adapter.
         // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
         // Deserialize API response and then construct new objects to append to the adapter

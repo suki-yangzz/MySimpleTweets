@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".TimelineActivity">
     <item android:id="@+id/new_tweet"
         android:title="@string/new_tweet"
-        android:onClick="composeTweet"
+        android:onClick="onComposeTweet"
         android:icon="@android:drawable/ic_menu_edit"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always" />
+    <item android:id="@+id/miProfile"
+        android:title="Profile"
+        android:onClick="onProfileView"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
