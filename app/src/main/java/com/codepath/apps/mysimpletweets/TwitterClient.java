@@ -1,10 +1,10 @@
 package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.scribe.builder.api.Api;
@@ -53,12 +53,25 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("status", tweet);
 		client.post(apiUrl, params, handler);
-		Log.d("DEBUG ", "Send tweet");
 	}
 
 	public void getCredentials(AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("account/verify_credentials.json");
 		RequestParams params = new RequestParams();
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getMentionsTimeline(long sinceId, long maxId, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", COUNT);
+		if (sinceId > 0) {
+			params.put("since_id", String.valueOf(sinceId));
+		} else if (maxId > 0) {
+			params.put("max_id", String.valueOf(maxId));
+		} else {
+			params.put("since_id", 1);
+		}
 		getClient().get(apiUrl, params, handler);
 	}
 }

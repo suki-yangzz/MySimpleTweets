@@ -3,32 +3,41 @@ package com.codepath.apps.mysimpletweets;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.fragments.HomeTimelineFragment;
+import com.codepath.apps.mysimpletweets.fragments.MentionsTimelineFragment;
 import com.codepath.apps.mysimpletweets.models.Tweet;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class TimelineActivity extends AppCompatActivity {
     private HomeTimelineFragment fragmentHomeTimeline;
+    private MentionsTimelineFragment mentionsTimelineFragment;
     private static final int REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        fragmentHomeTimeline = new HomeTimelineFragment();
-        //client = TwitterApplication.getRestClient(); //singleton client
-        //fragmentHomeTimeline.populateTimeline(0, 0);
-        if (savedInstanceState == null) {
-            fragmentHomeTimeline = (HomeTimelineFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-        }
+
+        //Get viewpager
+        ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+
+        //Set viewpager adapter to the pager
+        vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+
+        //Find the sliding tabstrip
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
+        //Attach the tabstrip to the viewpager
+        tabStrip.setViewPager(vpPager);
     }
 
     @Override
@@ -64,18 +73,8 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            Log.d("DEBUG: ", data.getSerializableExtra("tweet").toString());
-            //JSONObject tweetObj = (JSONObject) data.getExtras().getSerializable("tweet");
-            //Log.d("DEBUG: ", tweetObj.toString());
-            Bundle bundle = data.getBundleExtra("tweet");
-            JSONObject tweetObj = null;
-            try {
-                tweetObj = new JSONObject(bundle.getString("tweet"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Tweet tweet = Tweet.fromJSON(tweetObj);
-            fragmentHomeTimeline.insertTweet(tweet);
+            Tweet tweetObj = (Tweet) data.getExtras().get("tweet");
+            fragmentHomeTimeline.insertTweet(tweetObj);
         }
     }
 
@@ -84,4 +83,32 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(i, REQUEST_CODE);
     }
 
+    public class TweetsPagerAdapter extends FragmentStatePagerAdapter {
+        private String tabTitles[] = {"Home", "Mentions"};
+
+        public TweetsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                return new HomeTimelineFragment();
+            } else if (position == 1) {
+                return new MentionsTimelineFragment();
+            } else {
+                return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return tabTitles.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles[position];
+        }
+    }
 }

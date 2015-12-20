@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Tweet implements Serializable {
+    private static final long serialVersionUID = -7060210544600464481L;
     private String body;
     private long uid; //unique id for tweet
     private User user;
@@ -21,8 +22,25 @@ public class Tweet implements Serializable {
         return uid;
     }
 
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public String getCreatedAt() {
         return createdAt;
+
     }
 
     public User getUser() {

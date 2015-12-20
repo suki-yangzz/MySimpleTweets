@@ -1,10 +1,10 @@
 package com.codepath.apps.mysimpletweets.fragments;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
+import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
@@ -32,8 +33,6 @@ public class ComposeTweetFragment extends Fragment {
     private ImageView ivProfileImg;
     private TextView tvScreenName;
     private TextView tvName;
-    private JSONObject tweet;
-    private static final int REQUEST_CODE = 10;
 
     public ComposeTweetFragment() {
     }
@@ -92,13 +91,10 @@ public class ComposeTweetFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 if (response != null) {
                     Intent data = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("tweet", response.toString());
-                    data.putExtras(bundle);
+                    Tweet tweet = Tweet.fromJSON(response);
+                    data.putExtra("tweet", tweet);
                     getActivity().setResult(Activity.RESULT_OK, data);
-                    //setResult(Activity.RESULT_OK, data);
                     getActivity().finish();
-                    //finish();
                 } else {
                     Log.d("DEBUG", "Empty Response");
                 }
@@ -106,7 +102,8 @@ public class ComposeTweetFragment extends Fragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
+                //super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("DEBUG", "Tweet Failure");
             }
         });
     }

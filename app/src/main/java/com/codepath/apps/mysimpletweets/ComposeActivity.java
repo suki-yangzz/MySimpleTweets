@@ -21,6 +21,7 @@ public class ComposeActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             composeTweetFragment = (ComposeTweetFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compose_tweet);
         }
+        client = TwitterApplication.getRestClient(); //singleton client
     }
 
     @Override
@@ -28,7 +29,6 @@ public class ComposeActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_compose, menu);
-        client = TwitterApplication.getRestClient(); //singleton client
         return super.onCreateOptionsMenu(menu);
     }
 

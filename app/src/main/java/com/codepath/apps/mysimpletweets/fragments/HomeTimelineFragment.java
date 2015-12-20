@@ -2,7 +2,6 @@ package com.codepath.apps.mysimpletweets.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeTimelineFragment extends Fragment {
+public class HomeTimelineFragment extends TweetsListFragment {
     private TwitterClient client;
     private long maxId = 0;
     private long prevMaxId = 0;
