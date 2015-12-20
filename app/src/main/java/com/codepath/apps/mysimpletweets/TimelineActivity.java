@@ -63,7 +63,7 @@ public class TimelineActivity extends AppCompatActivity {
             return true;
         }
         switch (item.getItemId()) {
-            case R.id.new_tweet:
+            case R.id.miCompose:
                 onComposeTweet(item);
                 return true;
             case R.id.miProfile:
