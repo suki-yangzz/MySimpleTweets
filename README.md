@@ -11,5 +11,14 @@
     3.2 User can then enter a new tweet and post this to twitter <br />
     3.3 User is taken back to home timeline with new tweet visible in timeline <br />
     3.4 User can view his own profile image and screen name when composing <br />
+4 User can switch between Timeline and Mention views using tabs <br />
+    4.1 User can view their home timeline tweets <br />
+    4.2 User can view the recent mentions of their username <br />
+5 User can navigate to view their own profile <br />
+    5.1 User can see picture, tagline, # of followers, # of following, and tweets on their profile <br />
+6 User can click on the profile image in any tweet to see another user's profile <br />
+    6.1 User can see picture, tagline, # of followers, # of following, and tweets of clicked user <br />
+    6.2 Profile view should include that user's timeline <br />
+7 User can infinitely paginate any of these timelines (home, mentions, user) by scrolling to the bottom <br />
 
-![alt tag](https://github.com/suki-yangzz/MySimpleTweets/blob/master/suki-yangzz_TweetClient.gif)
+![alt tag](https://github.com/suki-yangzz/MySimpleTweets/blob/master/suki-yangzz_TweetClientV2.gif)
