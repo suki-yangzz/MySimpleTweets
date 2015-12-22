@@ -1,14 +1,20 @@
 package com.codepath.apps.mysimpletweets.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.codepath.apps.mysimpletweets.ComposeActivity;
+import com.codepath.apps.mysimpletweets.ProfileActivity;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.models.EndlessScrollListener;
@@ -22,6 +28,7 @@ public abstract class TweetsListFragment extends Fragment {
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private static final int REQUEST_CODE = 10;
 
     public TweetsListFragment() {
     }
@@ -30,6 +37,7 @@ public abstract class TweetsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_tweets_list, parent, false);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -66,6 +74,51 @@ public abstract class TweetsListFragment extends Fragment {
         aTweets = new TweetsArrayAdapter(getActivity(), tweets);
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_timeline, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        switch (item.getItemId()) {
+            case R.id.miCompose:
+                onComposeTweet(item);
+                return true;
+            case R.id.miProfile:
+                onProfileView(item);
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public boolean onComposeTweet(MenuItem mi) {
+        Intent i = new Intent(getActivity(), ComposeActivity.class);
+        startActivityForResult(i, REQUEST_CODE);
+        return true;
+    }
+
+    public boolean onProfileView(MenuItem mi) {
+        Intent i = new Intent(getActivity(), ProfileActivity.class);
+        startActivity(i);
+        return true;
+    }
+
 
     public void addAll(List<Tweet> tweets) {
         aTweets.addAll(tweets);

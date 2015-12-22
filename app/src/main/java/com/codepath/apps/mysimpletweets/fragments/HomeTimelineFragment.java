@@ -45,6 +45,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_tweets_list, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading

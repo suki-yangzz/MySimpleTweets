@@ -9,9 +9,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -44,37 +41,6 @@ public class TimelineActivity extends AppCompatActivity {
         tabStrip.setViewPager(vpPager);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_timeline, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        switch (item.getItemId()) {
-            case R.id.miCompose:
-                onComposeTweet(item);
-                return true;
-            case R.id.miProfile:
-                onProfileView(item);
-                return true;
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -84,16 +50,6 @@ public class TimelineActivity extends AppCompatActivity {
             fragmentHomeTimeline.insertTweet(tweetObj);
             fragmentHomeTimeline.refreshTimeline();
         }
-    }
-
-    public void onComposeTweet(MenuItem mi) {
-        Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-        startActivityForResult(i, REQUEST_CODE);
-    }
-
-    public void onProfileView(MenuItem mi) {
-        Intent i = new Intent(this, ProfileActivity.class);
-        startActivity(i);
     }
 
     public class TweetsPagerAdapter extends FragmentStatePagerAdapter {

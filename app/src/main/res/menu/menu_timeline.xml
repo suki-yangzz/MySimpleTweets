@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".TimelineActivity">
     <item android:id="@+id/miCompose"
         android:title="@string/new_tweet"
-        android:onClick="onComposeTweet"
         android:icon="@android:drawable/ic_menu_edit"
         app:showAsAction="always" />
     <item android:id="@+id/miProfile"
         android:title="Profile"
-        android:onClick="onProfileView"
         android:icon="@drawable/ic_profile"
         app:showAsAction="always" />
     <item android:id="@+id/action_settings"
